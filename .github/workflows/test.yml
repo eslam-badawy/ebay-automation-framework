@@ -3,6 +3,7 @@ name: Run Automation Tests
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -17,6 +18,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+
+      - name: Install Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
 
       - name: Run Tests
         run: mvn clean test -Dheadless=true
